@@ -3,11 +3,13 @@ class users_controller extends base_controller {
 
 	public function __construct() {
 		parent::__construct();
-		#echo "users_controller construct called<br><br>";
 	} 
 
 	public function index() {
-		#echo "This is the index page";
+		# Setup view
+			$this->template->content = View::instance('v_index_index');
+			$this->template->title   = "Index";
+			echo $this->template;	
 	}
 
 	public function signup() {
@@ -116,23 +118,29 @@ class users_controller extends base_controller {
     # Send them back to the main index.
     Router::redirect("/");
 
-	}
+	} ###### End Logout ##########
 
-	public function profile() {
-
-		# If user is blank, they're not logged in; redirect them to the login page
-		if(!$this->user) {
-			Router::redirect('/users/login');
-		}
-
-		# If they weren't redirected away, continue:
-
-		# Setup view
-		$this->template->content = View::instance('v_users_profile');
-		$this->template->title   = "Profile of".$this->user->first_name;
-
-
-	}
-
+	public function profile($user_name = NULL) {
+    
+    # Only logged in users are allowed...
+    if(!$this->user) {
+            die('Members only. <a href="/users/login">Login</a>');
+    }
+    if ($user_name==NULL ) {
+    	$display_name = $this->user->first_name;
+    }
+    # Set up the View
+    $this->template->content = View::instance('v_users_profile');
+    $this->template->title   = "Profile";                
+    # Pass the data to the View
+    $this->template->content->user_name = $display_name;
+    Debug::printr($this->template->content->user_name);
+    
+    # Display the view
+    echo $this->template;
+	                                
+  }
 
 } # end of the class
+
+?>
