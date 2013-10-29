@@ -10,6 +10,6 @@
 
 	<br><br>
 
-	<input type='submit' value='Log in'>
+	<input class="button small" type='submit' value='Log in'>
 
 </form>
