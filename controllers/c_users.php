@@ -133,9 +133,7 @@ class users_controller extends base_controller {
     $this->template->content = View::instance('v_users_profile');
     $this->template->title   = "Profile";                
     # Pass the data to the View
-    $this->template->content->user_name = $display_name;
-    Debug::printr($this->template->content->user_name);
-    
+    $this->template->content->user_name = $display_name;    
     # Display the view
     echo $this->template;
 	                                
