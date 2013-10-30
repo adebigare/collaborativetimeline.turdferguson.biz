@@ -13,11 +13,15 @@ class index_controller extends base_controller {
 	Accessed via http://localhost/index/index/
 	-------------------------------------------------------------------------------------------------*/
 	public function index() {
-		
+		if ($this->user) {
+			header('Location: posts');
+			die();
+		}
 		# Any method that loads a view will commonly start with this
 		# First, set the content of the template with a view file
-			$this->template->content = View::instance('v_index_index');
-			
+			$this->template->profile = View::instance('v_index_index');
+			$this->template->content = View::instance('v_posts_index');
+
 		# Now set the <title> tag
 			$this->template->title = "Collaborative Timeline";
 	

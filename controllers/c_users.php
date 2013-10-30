@@ -7,7 +7,8 @@ class users_controller extends base_controller {
 
 	public function index() {
 		# Setup view
-			$this->template->content = View::instance('v_index_index');
+			$this->template->profile = View::instance('v_index_index');
+			$this->template->content = View::instance('v_posts_index');
 			$this->template->title   = "Index";
 			echo $this->template;	
 	}

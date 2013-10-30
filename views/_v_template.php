@@ -45,7 +45,7 @@
 					<li class="divider"></li>
 					<li><a href='/users/profile'>Profile</a></li>
 					<li class="divider"></li>
-					<li><a href='/posts/add'>Posts</a></li>
+					<li><a href='/posts/index'>Posts</a></li>
 
 		<!-- Menu options for users who are not logged in -->
 			<?php else: ?>
@@ -72,6 +72,7 @@
 		  <div id="inserted-content" class="large-10 large-centered columns">
 
 				<?php if(isset($content)) echo $content; ?>
+				<?php if(isset($profile)) echo $profile; ?>
 				<?php if(isset($client_files_body)) echo $client_files_body; ?>
 
 			</div>
