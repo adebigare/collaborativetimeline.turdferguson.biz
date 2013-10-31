@@ -1,15 +1,19 @@
-<form method='POST' action='/users/p_login'>
 
-	Email<br>
-	<input type='text' name='email'>
+<div class="row">
+	<h2>Log In and Post Some Cool Links!</h2>
+	<div class="large-6 large-centered columns">
 
-	<br><br>
+		<form class="form" method='POST' action='/users/p_login'>
 
-	Password<br>
-	<input type='password' name='password'>
+			<p>Email</p>
+			<input type='text' name='email'>
 
-	<br><br>
+			<p>Password</p>
+			<input type='password' name='password'>
 
-	<input class="button small" type='submit' value='Log in'>
+			<input class="button small" type='submit' value='Log in'>
 
-</form>
+		</form>
+
+	</div>
+</div>

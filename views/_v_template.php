@@ -49,8 +49,6 @@
 
 		<!-- Menu options for users who are not logged in -->
 			<?php else: ?>
-				  <li class="divider"></li>
-					<LI><a href='/users/signup'>Sign up</a></LI>
 					<li class="divider"></li>
 					<li><a href='/users/login'>Log in</a></li>
 			<?php endif; ?>
@@ -72,7 +70,6 @@
 		  <div id="inserted-content" class="large-10 large-centered columns">
 
 				<?php if(isset($content)) echo $content; ?>
-				<?php if(isset($profile)) echo $profile; ?>
 				<?php if(isset($client_files_body)) echo $client_files_body; ?>
 
 			</div>

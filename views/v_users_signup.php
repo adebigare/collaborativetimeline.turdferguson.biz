@@ -1,24 +1,20 @@
 
 
-<form method='POST' action='/users/p_signup'>
+<form class="signup" method='POST' action='/users/p_signup'>
 
-    First Name<br>
+    <p>First Name</p>
     <input type='text' name='first_name'>
-    <br><br>
 
-    Last Name<br>
+    <p>Last Name</p>
     <input type='text' name='last_name'>
-    <br><br>
 
-    Email<br>
+    <p>Email</p>
     <input type='text' name='email'>
-    <br><br>
 
-    Password<br>
+    <p>Password</p>
     <input type='password' name='password'>
-    <br><br>
 
-    <input type='submit' value='Sign up'>
+    <input class="button" type='submit' value='Sign up'>
 
 </form>
 

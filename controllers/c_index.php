@@ -13,26 +13,18 @@ class index_controller extends base_controller {
 	Accessed via http://localhost/index/index/
 	-------------------------------------------------------------------------------------------------*/
 	public function index() {
-		if ($this->user) {
-			header('Location: posts');
-			die();
-		}
-		# Any method that loads a view will commonly start with this
-		# First, set the content of the template with a view file
-			$this->template->profile = View::instance('v_index_index');
-			$this->template->content = View::instance('v_posts_index');
 
-		# Now set the <title> tag
+		# Redirect Logged in users to their feed
+			if ($this->user) {
+				header('Location: posts');
+				die();
+			} 
+
+		# Set View for Unlogged User
+			$this->template->content = View::instance('v_index_index');
+			$this->template->content->signup = View::instance('v_users_signup');
 			$this->template->title = "Collaborative Timeline";
-	
-		# CSS/JS includes
-			/*
-			$client_files_head = Array("");
-	    	$this->template->client_files_head = Utils::load_client_files($client_files);
-	    	
-	    	$client_files_body = Array("");
-	    	$this->template->client_files_body = Utils::load_client_files($client_files_body);   
-	    	*/
+
 	      					     		
 		# Render the view
 			echo $this->template;

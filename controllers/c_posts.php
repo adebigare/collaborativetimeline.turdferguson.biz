@@ -11,7 +11,7 @@
 			}
 		}
 
-		public function index() {
+		public function index($posts = NULL) {
 
 			$this->template->content = View::instance('v_posts_index');
 			$this->template->title = 'Posts';

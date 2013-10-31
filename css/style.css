@@ -1,3 +1,33 @@
+body {
+	background-color: #BBE9FA;
+}
+
+
 #inserted-content {
+	margin-top: 4em;
+}
+
+.form {
+	border-radius: 3px;
+	border: 1px solid #999;
+	box-shadow: 1px 1px 0 #999;
+	padding: .5em;
+	margin: 3em auto;
+	background-color: white;
+}
+
+#signup-form h3 {
+	text-align: center;
+}
+
+#signup-form p {
+	margin-bottom: .5em;
+}
+
+#signup-form .button {
+
+}
+
+.login {
 	margin-top: 2em;
 }
