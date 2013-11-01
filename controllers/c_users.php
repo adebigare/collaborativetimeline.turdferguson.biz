@@ -45,8 +45,15 @@ class users_controller extends base_controller {
 			$this->template->title   = "Success";
 
 			$this->template->content->token = $_POST['token'];
-		#Render Template
-			echo $this->template;
+
+		# log in new user
+			if($user_id) {
+			setcookie('token',$_POST['token'], strtotime('+1 year'), '/');
+			}
+
+		# Redirect to Profile page
+			Router::redirect('/posts/index');
+
 
 
 	} ######## End Signup #############
@@ -58,41 +65,46 @@ class users_controller extends base_controller {
 			$this->template->title   = "Login";
 
 		# Render template
-				echo $this->template;
+			echo $this->template;
 	}
 
 	public function p_login() {
 
-		# Sanitize the user entered data to prevent any funny-business (re: SQL Injection Attacks)
-			$_POST = DB::instance(DB_NAME)->sanitize($_POST);
+		$email = $_POST['email'];
 
-		# Hash submitted password so we can compare it against one in the db
-			$_POST['password'] = sha1(PASSWORD_SALT.$_POST['password']);
+    #Use the login method provided by the core framework
+    $token = $this->userObj->login($email, $_POST['password'], $_POST['timezone']);
 
-		# Search the db for this email and password
-		# Retrieve the token if it's available
-			$q = "SELECT token 
-			    FROM users 
-			    WHERE email = '".$_POST['email']."' 
-			    AND password = '".$_POST['password']."'";
+    #go to user appropriate page depending on login status
+    $this->userObj->login_redirect($token, $email, '/users/index/');
 
-			$token = DB::instance(DB_NAME)->select_field($q);
+		// # Sanitize the user entered data to prevent any funny-business (re: SQL Injection Attacks)
+		//     $_POST = DB::instance(DB_NAME)->sanitize($_POST);
 
-		# If we didn't find a matching token in the database, it means login failed
-			if(!$token) {
+		//     # Hash submitted password so we can compare it against one in the db
+		//     $_POST['password'] = sha1(PASSWORD_SALT.$_POST['password']);
 
-			    # Send them back to the login page
-			    Router::redirect("/users/login/");
+	 //    # Build Query
+		//     $q = "SELECT token 
+		//         FROM users 
+		//         WHERE email = '".$_POST['email']."' 
+		//         AND password = '".$_POST['password']."'";
 
-		# But if we did, login succeeded! 
-			} else {
+		//     $token = DB::instance(DB_NAME)->select_field($q);
 
-			    setcookie("token", $token, strtotime('+1 year'), '/');
+		//     # If we didn't find a matching token in the database, it means login failed
+		//     if(!$token) {
 
-			    # Send them to the main page - or whever you want them to go
-			    Router::redirect("/");
+		//         # Send them back to the login page
+		//         Router::redirect("/users/login/");
 
-			}
+		//     # But if we did, login succeeded! 
+		//     } else {
+
+		//         setcookie("token", $token, strtotime('+1 year'), '/');
+		//         Router::redirect("/");
+
+		//     }
 
 	} ###### End Login ##########
 

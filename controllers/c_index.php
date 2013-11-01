@@ -14,12 +14,6 @@ class index_controller extends base_controller {
 	-------------------------------------------------------------------------------------------------*/
 	public function index() {
 
-		# Redirect Logged in users to their feed
-			if ($this->user) {
-				header('Location: posts');
-				die();
-			} 
-
 		# Set View for Unlogged User
 			$this->template->content = View::instance('v_index_index');
 			$this->template->content->signup = View::instance('v_users_signup');

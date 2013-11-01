@@ -12,6 +12,5 @@
         <a href='/posts/follow/<?=$user['user_id']?>'>Follow</a>
     <?php endif; ?>
 
-    <br><br>
 
 <?php endforeach; ?>

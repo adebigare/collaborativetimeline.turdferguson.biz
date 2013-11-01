@@ -13,9 +13,10 @@
 
 		public function index($posts = NULL) {
 
+
 			$this->template->content = View::instance('v_posts_index');
 			$this->template->title = 'Posts';
-
+			$this->template->secondary   = View::instance('v_posts_relationships');               
 			# Query
 	    $q = 'SELECT 
 	            posts.content,

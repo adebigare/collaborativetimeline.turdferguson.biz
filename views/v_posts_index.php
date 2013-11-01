@@ -1,5 +1,5 @@
 <?php if ($posts == NULL):  ?>
-	<h3>Whoops! It looks like you need some friends</h3>
+	<h3>It looks like you need some friends</h3>
 	<?=$follow?>
 <?php endif; ?>
 
@@ -8,9 +8,9 @@
 	<article>
 		<h3><?=$post['first_name']?> <?=$post['last_name']?> posted:</h3> 
 
-		<time datetime="<?=Time::display($post['created'], 'Y-m-d G:i')?>">
+		<p><time datetime="<?=Time::display($post['created'], 'Y-m-d G:i')?>">
 			<?=Time::display($post['created'])?>
-		</time>
+		</time></p>
 
 		<p><?=$post['content']?> </p>
 

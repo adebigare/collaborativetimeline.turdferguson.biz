@@ -69,7 +69,12 @@
 
 		  <div id="inserted-content" class="large-10 large-centered columns">
 
-				<?php if(isset($content)) echo $content; ?>
+				<div class="row">
+					<div class="large-12 columns">
+						<?php if(isset($content)) echo $content; ?>
+					</div>
+				</div> 
+				<?php if(isset($secondary)) echo $secondary; ?>
 				<?php if(isset($client_files_body)) echo $client_files_body; ?>
 
 			</div>
