@@ -1,5 +1,3 @@
-<?php if(!$user): ?>
-
 	<h1>Welcome to <?=APP_NAME?>!</h1>
 	<p><?=APP_NAME?> is a way for friends to keep each other up-to-date on the news stories that matter to them. Find your friends, create timelines and share important news stories to build a collaborative narrative.</p>
 
@@ -9,10 +7,3 @@
 			<?=$signup?>
 		</div>
 	</div>
-
-<? endif; ?>
-
-
-<h2>Welcome</h2>
-
-<?=$user_feed?>

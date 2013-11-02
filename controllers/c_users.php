@@ -12,14 +12,13 @@ class users_controller extends base_controller {
 			$this->template->secondary = View::instance('v_posts_index');
 			$this->template->title   = "Index";
 
+		# Set User's display name
 			$display_name = $this->user->first_name;
 			$this->template->content->user_name = $display_name;    
 
-			$user_feed = posts_controller::user_feed($this->user);
+		# Create User's feed
+			$user_feed = Post_feed::user_feed($this->user);
 			$this->template->secondary->posts = $user_feed;
-			Debug::printr($userfeed);
-
-
 
 		# Render Template
 			echo $this->template;	
@@ -88,34 +87,6 @@ class users_controller extends base_controller {
 
     #go to user appropriate page depending on login status
     $this->userObj->login_redirect($token, $email, '/users/index/');
-
-		// # Sanitize the user entered data to prevent any funny-business (re: SQL Injection Attacks)
-		//     $_POST = DB::instance(DB_NAME)->sanitize($_POST);
-
-		//     # Hash submitted password so we can compare it against one in the db
-		//     $_POST['password'] = sha1(PASSWORD_SALT.$_POST['password']);
-
-	 //    # Build Query
-		//     $q = "SELECT token 
-		//         FROM users 
-		//         WHERE email = '".$_POST['email']."' 
-		//         AND password = '".$_POST['password']."'";
-
-		//     $token = DB::instance(DB_NAME)->select_field($q);
-
-		//     # If we didn't find a matching token in the database, it means login failed
-		//     if(!$token) {
-
-		//         # Send them back to the login page
-		//         Router::redirect("/users/login/");
-
-		//     # But if we did, login succeeded! 
-		//     } else {
-
-		//         setcookie("token", $token, strtotime('+1 year'), '/');
-		//         Router::redirect("/");
-
-		//     }
 
 	} ###### End Login ##########
 

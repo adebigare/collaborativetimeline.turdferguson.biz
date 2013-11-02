@@ -11,6 +11,10 @@ class index_controller extends base_controller {
 	-------------------------------------------------------------------------------------------------*/
 	public function index() {
 
+			if ($this->user) {
+				Router::redirect('/users/index');
+			}
+
 			$this->template->title = "Collaborative Timeline";
 			$this->template->content = View::instance('v_index_index');
 			$this->template->content->signup = View::instance('v_users_signup');
