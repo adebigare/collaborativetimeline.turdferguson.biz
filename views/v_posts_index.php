@@ -1,8 +1,3 @@
-<?php if ($posts == NULL):  ?>
-	<h3>It looks like you need some friends</h3>
-	<?=$follow?>
-<?php endif; ?>
-
 <?php foreach($posts as $post): ?>
 
 	<article>

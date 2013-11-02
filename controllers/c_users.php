@@ -6,9 +6,20 @@ class users_controller extends base_controller {
 	} 
 
 	public function index() {
+
 		# Setup view
-			$this->template->content = View::instance('v_index_index');
+			$this->template->content = View::instance('v_users_profile');
+			$this->template->secondary = View::instance('v_posts_index');
 			$this->template->title   = "Index";
+
+			$display_name = $this->user->first_name;
+			$this->template->content->user_name = $display_name;    
+
+			$user_feed = posts_controller::user_feed($this->user);
+			$this->template->secondary->posts = $user_feed;
+			Debug::printr($userfeed);
+
+
 
 		# Render Template
 			echo $this->template;	
@@ -52,7 +63,7 @@ class users_controller extends base_controller {
 			}
 
 		# Redirect to Profile page
-			Router::redirect('/posts/index');
+			Router::redirect('/users/index');
 
 
 
@@ -134,13 +145,12 @@ class users_controller extends base_controller {
 	    if(!$this->user) {
             die('Members only. <a href="/users/login">Login</a>');
 	    }
-	    if ($user_name==NULL ) {
-    	$display_name = $this->user->first_name;
-	    }
+	  
     # Set up the View
 	    $this->template->content = View::instance('v_users_profile');
 	    $this->template->title   = "Profile";                
     # Pass the data to the View
+	    $display_name = $this->user->first_name;
 	    $this->template->content->user_name = $display_name;    
     # Display the view
 	    echo $this->template;

@@ -2,9 +2,6 @@
 
 class index_controller extends base_controller {
 	
-	/*-------------------------------------------------------------------------------------------------
-
-	-------------------------------------------------------------------------------------------------*/
 	public function __construct() {
 		parent::__construct();
 	} 
@@ -14,11 +11,9 @@ class index_controller extends base_controller {
 	-------------------------------------------------------------------------------------------------*/
 	public function index() {
 
-		# Set View for Unlogged User
+			$this->template->title = "Collaborative Timeline";
 			$this->template->content = View::instance('v_index_index');
 			$this->template->content->signup = View::instance('v_users_signup');
-			$this->template->title = "Collaborative Timeline";
-
 	      					     		
 		# Render the view
 			echo $this->template;
