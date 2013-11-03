@@ -7,7 +7,8 @@
 		
 
 			if(!$this->user){
-				die("Oops, you've found a members only area, and you're not logged in.<a href='/users/login'>Login</a>");
+				Router::redirect('/users/login');
+				alert("Oops, you've found a members only area, and you're not logged in.");
 			}
 		}
 
@@ -17,32 +18,12 @@
 			$this->template->title = 'Posts';
 
 			# Query
-			$this->template->content->posts = $this->user_feed($this->user);
+			$this->template->content->posts = Post_feed::user_feed($this->user);
 
 			echo $this->template;
 
 		}
 
-		public static function user_feed ($user) {
-
-			    $q = 'SELECT 
-			            posts.content,
-			            posts.created,
-			            posts.user_id AS post_user_id,
-			            users_users.user_id AS follower_id,
-			            users.first_name,
-			            users.last_name
-				        FROM posts
-				        INNER JOIN users_users 
-			            ON posts.user_id = users_users.user_id_followed
-				        INNER JOIN users 
-			            ON posts.user_id = users.user_id
-				        WHERE users_users.user_id = '.$user->user_id;
-
-					$feed = DB::instance(DB_NAME)->select_rows($q);
-
-					return $feed;
-		}
 
 		public function add() {
 			# Setup view
@@ -53,7 +34,8 @@
 			echo $this->template;
 		}
 
-		public function p_add() {
+		public function p_add($success==NULL,) {
+
 			$_POST['user_id'] = $this->user->user_id;
 
 			$_POST['created'] = Time::now();
@@ -61,7 +43,7 @@
 
 			DB::instance(DB_NAME)->insert('posts',$_POST);
 
-			echo "Your post has been added.";
+			Router::redirect('/users/index');
 		}
 
 		public function relationships() {

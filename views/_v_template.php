@@ -59,25 +59,20 @@
 	</div>
 	<!-- Header/Splash Page -->
 	<div id="main">
-		<div id='header' class="row">
-			<div id="header-content" class="large-10 large-centered columns">
-			</div>
-		</div> 
+
 		<!-- End Header/Splash -->
 
 		<div id="wrapper" class="row">
 
 		  <div id="inserted-content" class="large-10 large-centered columns">
 
-				<div class="row">
-					<div class="large-12 columns">
-						<?php if(isset($content)) echo $content; ?>
-					</div>
-				</div> 
+				<?php if(isset($content)) echo $content; ?>
+				<?php if(isset($add_post)) echo $add_post; ?>
 				<?php if(isset($secondary)) echo $secondary; ?>
 				<?php if(isset($client_files_body)) echo $client_files_body; ?>
 
 			</div>
+
 		</div>
 	</div>
 

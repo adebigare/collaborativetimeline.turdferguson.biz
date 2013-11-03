@@ -7,7 +7,7 @@
 			<?=Time::display($post['created'])?>
 		</time></p>
 
-		<p><?=$post['content']?> </p>
+		<a href="<?=$post['content']?>"><?=$post['content']?></a>
 
 	</article>
 
