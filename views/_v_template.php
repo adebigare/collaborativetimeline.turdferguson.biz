@@ -64,7 +64,7 @@
 
 		<div id="wrapper" class="row">
 
-		  <div id="inserted-content" class="large-10 large-centered columns">
+		  <div id="inserted-content">
 
 				<?php if(isset($content)) echo $content; ?>
 				<?php if(isset($add_post)) echo $add_post; ?>

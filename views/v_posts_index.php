@@ -1,7 +1,7 @@
 <ul class="user_feed">
 <?php foreach($posts as $post): ?>
 
-	<li class="row"><article>
+	<li class="post_feed row"><article>
 		<div class="large-4 columns">
 		<p><?=$post['first_name']?> <?=$post['last_name']?> added:</p> 
 

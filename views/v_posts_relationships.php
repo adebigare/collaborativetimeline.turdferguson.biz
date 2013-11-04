@@ -1,16 +1,16 @@
-<?php foreach($users as $user): ?>
+<div class="large-8 large-centered columns">
+	<?php foreach($users as $user): ?>
+		<p>
 
-    <!-- Print this user's name -->
-    <?=$user['first_name']?> <?=$user['last_name']?>
+		<?php if(isset($connections[$user['user_id']])): ?>
+			You are currently following <?=$user['first_name']?> <?=$user['last_name']?>
+			<a class="button small radius" href='/posts/unfollow/<?=$user['user_id']?>'>Unfollow</a>
 
-    <!-- If there exists a connection with this user, show a unfollow link -->
-    <?php if(isset($connections[$user['user_id']])): ?>
-        <a href='/posts/unfollow/<?=$user['user_id']?>'>Unfollow</a>
-
-    <!-- Otherwise, show the follow link -->
-    <?php else: ?>
-        <a href='/posts/follow/<?=$user['user_id']?>'>Follow</a>
-    <?php endif; ?>
+		<?php else: ?>
+			You are not following <?=$user['first_name']?> <?=$user['last_name']?>
+			<a class="button small radius" href='/posts/follow/<?=$user['user_id']?>'>Follow</a>
+		<?php endif; ?></p>
 
 
-<?php endforeach; ?>
+	<?php endforeach; ?>
+</div>

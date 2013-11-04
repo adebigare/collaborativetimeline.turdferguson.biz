@@ -16,6 +16,10 @@ ul.user_feed {
 	list-style-type: none;
 }
 
+li.post_feed {
+	margin-bottom: 2em !important;
+}
+
 ul.user_feed h4 {
 		line-height: 1.5em;
 }
@@ -69,6 +73,10 @@ p.time {
 .button:hover {
 	background-color: #094257;
 	border-color: #094257;
+}
+
+.button.add_post {
+	float: right;
 }
 
 textarea {
