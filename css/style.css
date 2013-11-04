@@ -4,6 +4,31 @@ body {
 	background-color: #BBE9FA;
 }
 
+a {
+	color: black;
+}
+
+a:hover {
+	color:gray;
+}
+
+ul.user_feed {
+	list-style-type: none;
+}
+
+ul.user_feed h4 {
+		line-height: 1.5em;
+}
+
+ul.user_feed p {
+	margin-bottom: 0;
+}
+
+p.time {
+	font-size: 12px;
+	text-transform: uppercase;
+}
+
 #inserted-content {
 	margin-top: 4em;
 }

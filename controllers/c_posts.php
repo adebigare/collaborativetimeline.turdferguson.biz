@@ -34,12 +34,13 @@
 			echo $this->template;
 		}
 
-		public function p_add($success==NULL,) {
+		public function p_add() {
 
 			$_POST['user_id'] = $this->user->user_id;
 
 			$_POST['created'] = Time::now();
 			$_POST['modified'] = Time::now();
+			$_POST['content_title'] = Post_feed::get_remote_page_title($_POST['content']);
 
 			DB::instance(DB_NAME)->insert('posts',$_POST);
 
