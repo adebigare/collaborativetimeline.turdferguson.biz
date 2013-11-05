@@ -143,6 +143,50 @@ class users_controller extends base_controller {
 																	
 	} ######## End Profile ##########
 
+	public function upload_profile_image() {
+
+		$this->template->title = "Upload Image";
+		$this->template->content = View::instance('v_users_upload_profile_image');
+
+		echo $this->template;
+	}
+
+
+	public function p_upload_profile_image() {
+
+			$user_id = $this->user->user_id;
+
+			$uploadForm = '/users/upload_profile_image';
+
+	    $file_path = APP_PATH.AVATAR_PATH.$user_id; 
+	    
+	    $file_name = $file_path.".png"; 
+
+	    if (move_uploaded_file ($_FILES['upload_image_file'] ['tmp_name'], $file_name)) {
+
+    		print '<p>Success!</p>';
+
+	  	} else {
+
+		    switch ($_FILES['upload_image_file'] ['error']) {  
+
+		    		case 1:
+		               print '<p> The file is bigger than this PHP installation allows</p>';
+		               break;
+		        case 2:
+		        			print '<p> The file is bigger than this form allows. Images can be no larger than 30mb.</p>';
+		              break;
+		        case 3:
+		               print '<p> Only part of the file was uploaded</p>';
+		               break;
+		        case 4:
+		               print '<p> No file was uploaded</p>';
+		               break;
+				}
+
+	     }
+	}
+
 } # end of the class
 
 ?>
