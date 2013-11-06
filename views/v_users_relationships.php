@@ -21,7 +21,7 @@
 				<tr>
 					<th><?=$user['first_name']?> <?=$user['last_name']?></th>
 					<th>Following</th>
-					<th><a class="unfollow button small radius" href='/posts/unfollow/<?=$user['user_id']?>'>Unfollow</a></th>
+					<th><a class="unfollow button small radius" href='/users/unfollow/<?=$user['user_id']?>'>Unfollow</a></th>
 				</tr>
 				
 		<!-- If they aren't -->
@@ -31,7 +31,7 @@
 					<th><?=$user['first_name']?> <?=$user['last_name']?></th>
 					<th>Not Following</th>
 
-					<th><a class="follow button small radius" href='/posts/follow/<?=$user['user_id']?>'>Follow</a></th>
+					<th><a class="follow button small radius" href='/users/follow/<?=$user['user_id']?>'>Follow</a></th>
 				</tr>
 
 			<?php endif; ?>

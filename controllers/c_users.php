@@ -137,20 +137,29 @@
 
 	////////////////////// PROFILE ////////////////////////////////
 
-		public function profile($user_name = NULL) {
+		public function profile($edit = NULL) {
 			
 			# Only logged in users are allowed...
 				if(!$this->user) {
 							die('Members only. <a href="/users/login">Login</a>');
 				}
+				
+					if ($edit != NULL)	{
+						if ($edit !== 'edit') {
+							echo('This is not the page you are looking for...');
+							die();
+						}
+					}			
 			
 			# Set up the View
 				$profile_view = View::instance('v_users_profile');
-				$this->template->profile = $profile_view;
+
+				$this->template->content = $profile_view;
 
 				$profile_view->user_info = $this->user;
 
-				$this->template->title   = "Profile";     
+				$this->template->title   = "Profile";
+
 
 			# Display the view
 				echo $this->template;
@@ -235,7 +244,7 @@
 					DB::instance(DB_NAME)->insert('users_users', $data);
 
 				# Send them back
-					Router::redirect("/posts/relationships");
+					Router::redirect("/users/relationships");
 
 			}
 
@@ -246,7 +255,7 @@
 			    DB::instance(DB_NAME)->delete('users_users', $where_condition);
 
 		    # Send them back
-			    Router::redirect("/posts/relationships");
+			    Router::redirect("/users/relationships");
 
 			}
 
