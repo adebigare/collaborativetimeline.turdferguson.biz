@@ -18,6 +18,8 @@
 			$this->template->content = View::instance('v_posts_index');
 			$this->template->title = 'Posts';
 
+			$this->template->content->subhead = "<h1>What are you reading?</h1>";
+
 		# Query
 			$this->template->content->posts = Post_feed::user_feed($this->user);
 

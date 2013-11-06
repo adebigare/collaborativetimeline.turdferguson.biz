@@ -163,14 +163,16 @@
 							die('Members only. <a href="/users/login">Login</a>');
 				}
 
-			# Check to see if /edit was appended to url. If anything other than edit is appended, die.
+			# Check to see if specific routing params were called.
 				$editing = false;
+				$success = false;
 
 				if ($route != NULL)	{
 
 					if ($route ==='edit') {
 						$editing = true;
-
+					}else if ($route === 'success') {
+						$success = true;
 					} else {
 						echo('This is not the page you are looking for...');
 						die();
@@ -187,6 +189,8 @@
 
 				$this->template->content->editing = $editing;
 
+				$this->template->content->success = $success;
+
 				$profile_view->user_info = $this->user;
 
 				$this->template->title   = "Profile";
@@ -199,8 +203,17 @@
 
 		public function p_update_profile() {
 
-			// If the user adds information, add it to the DB otherwise ignore
+			
+			$data = Array (
+				"first_name" => $_POST['first_name'],
+				"last_name" => $_POST['last_name'],
+				"email" => $_POST['email'],
+				"website" => $_POST['website'],
+				"twitter_handle" => $_POST['twitter_handle']
+				);
 
+			DB::instance(DB_NAME)->update_row("users", $data, "WHERE user_id ="	.$this->user->user_id);
+			Router::redirect('/users/profile/success');
 		}
 
 
@@ -234,7 +247,7 @@
 
 		  	} else {
 
-		  		Router::redirect('/users/profile/error');
+		  		Router::redirect('/users/upload_profile_image/error');
 			   
 				}   
 		}

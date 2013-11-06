@@ -43,6 +43,10 @@ p.time {
 	margin-top: 4em;
 }
 
+.subhead {
+	margin: 1em auto 3em auto;
+}
+
 .form {
 	border-radius: 3px;
 	border: 1px solid #999;

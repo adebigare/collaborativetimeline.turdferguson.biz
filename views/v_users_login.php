@@ -1,4 +1,6 @@
-<div class="subhead large-12 columns">
+<div class="row">
+
+<div class="subhead">
 	<h1>Log In and Share Your News!</h1>
 </div>	
 
@@ -8,17 +10,17 @@
 		</p></div>
 <?php endif; ?>
 
-<div class="row">
 
-	<div class="form prod large-6 large-centered columns">
+
+	<div class="form large-6 large-centered columns">
 
 		<form method='POST' action='/users/p_login'>
 
 			<p>Email</p>
-			<input type='text' name='email'>
+			<input type='text' name='email' required>
 
 			<p>Password</p>
-			<input type='password' name='password'>
+			<input type='password' name='password' required>
 
 			<input class='button small radius' type='submit' value='Log in'>
 
