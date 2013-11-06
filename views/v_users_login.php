@@ -1,4 +1,6 @@
-<h2>Log In and Post Some Cool Links!</h2>
+<div class="subhead large-12 columns">
+	<h1>Log In and Share Your News!</h1>
+</div>	
 
 <?php if(isset($error)): ?>
 		<div class=" large-8 columns error"><p>

@@ -9,11 +9,19 @@
 
 		public function index() {
 
+			if(!$this->user) {
+						die(Router::redirect('/index/index'));
+			}
+
 			# Setup view
 				$this->template->profile_widget = View::instance('v_users_profile_widget');
 				$this->template->content = View::instance('v_posts_index');
 				$this->template->add_post = View::instance('v_posts_add');
 				$this->template->title   = "Index";
+
+				$name = $this->user->first_name;
+
+				$this->template->content->subhead = "<h1>Welcome Back, $name !</h1>";
 
 			# Set User's Table information
 				$this->template->profile_widget->user_info = $this->user;
@@ -35,12 +43,28 @@
 				$this->template->content = View::instance('v_users_signup');
 				$this->template->title   = "Sign Up";
 
+				$this->template->content->error = $error;
+
 			# Render Template
 				echo $this->template;
 
 		}
 
 		public function p_signup() {
+
+			if (empty($_POST['first_name'])) {
+				Router::redirect('/users/signup/error');
+			} 
+
+			elseif (empty($_POST['last_name'])) {
+				Router::redirect('/users/signup/error');
+			}
+			elseif (empty($_POST['email'])) {
+				Router::redirect('/users/signup/error');
+			}
+			elseif (empty($_POST['password'])) {
+				Router::redirect('/users/signup/error');
+			} else {
 
 			# More data we want stored with the user
 				$_POST['created']  = Time::now();
@@ -55,12 +79,7 @@
 			# Insert this user into the database
 				$user_id = DB::instance(DB_NAME)->insert('users', $_POST);
 
-
-			# Setup view
-				$this->template->content = View::instance('v_users_signup_success');
-				$this->template->title   = "Success";
-
-				$this->template->content->token = $_POST['token'];
+				$this->userObj->create_initial_avatar($user_id);
 
 			# log in new user
 				if($user_id) {
@@ -68,8 +87,8 @@
 				}
 
 			# Redirect to Profile page
-				Router::redirect('/users/profile');
-
+				Router::redirect('/users/index');
+			}
 		} 
 
 
@@ -137,24 +156,36 @@
 
 	////////////////////// PROFILE ////////////////////////////////
 
-		public function profile($edit = NULL) {
+		public function profile ($route = NULL) {
 			
 			# Only logged in users are allowed...
 				if(!$this->user) {
 							die('Members only. <a href="/users/login">Login</a>');
 				}
-				
-					if ($edit != NULL)	{
-						if ($edit !== 'edit') {
-							echo('This is not the page you are looking for...');
-							die();
-						}
-					}			
+
+			# Check to see if /edit was appended to url. If anything other than edit is appended, die.
+				$editing = false;
+
+				if ($route != NULL)	{
+
+					if ($route ==='edit') {
+						$editing = true;
+
+					} else {
+						echo('This is not the page you are looking for...');
+						die();
+					}
+
+				}			
 			
 			# Set up the View
 				$profile_view = View::instance('v_users_profile');
 
 				$this->template->content = $profile_view;
+
+				$profile_view->image_upload = View::instance('v_users_upload_profile_image');
+
+				$this->template->content->editing = $editing;
 
 				$profile_view->user_info = $this->user;
 
@@ -164,6 +195,12 @@
 			# Display the view
 				echo $this->template;
 																		
+		}
+
+		public function p_update_profile() {
+
+			// If the user adds information, add it to the DB otherwise ignore
+
 		}
 
 
@@ -191,13 +228,13 @@
 		    if (move_uploaded_file ($_FILES['upload_image_file'] ['tmp_name'], $file_name)) {
 	    		
 	    		# Update the database
-	    		DB::instance(DB_NAME)->update('users', Array("avatar" => $imgObj), "WHERE user_id = ".$user_id);
+	    		DB::instance(DB_NAME)->update('users', Array("avatar" => $user_id.".png"), "WHERE user_id = ".$user_id);
 
 	    		Router::redirect('/users/profile');
 
 		  	} else {
 
-		  		Router::redirect('users/profile/error');
+		  		Router::redirect('/users/profile/error');
 			   
 				}   
 		}

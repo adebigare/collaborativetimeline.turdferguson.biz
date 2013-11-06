@@ -4,31 +4,17 @@ body {
 	background-color: #BBE9FA;
 }
 
-body::after {
-  content: "";
-  background: url(/img/grilled.png) repeat;
-  opacity: 0.5;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  position: absolute;
-  z-index: -1;   
-}
-
-/*#background {
-	background-color: #BBE9FA;
-*/
 
 a {
-	color: black;
+	color: #0A6D91;
 }
 
 a:hover {
-	color:gray;
+	background-color: #0A6D91;
+	color:white;
 }
 
-ul.user_feed {
+ul {
 	list-style-type: none;
 }
 
@@ -42,6 +28,10 @@ ul.user_feed h4 {
 
 ul.user_feed p {
 	margin-bottom: 0;
+}
+
+ul.profile_info {
+
 }
 
 p.time {

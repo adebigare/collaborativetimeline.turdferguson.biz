@@ -1,14 +1,16 @@
-<div class="large-8 large-centered columns">
-
-	<h3>Upload a profile picture</h3> 
+<div class="subhead large-12 columns">
+	<h1>Upload A New Profile Photo</h1>
+</div>	
 
 	<?php if(isset($error)): ?>
-			<div class="error"><p>
-			   Upload failed. Double check your file. Files should be >30MB.
-			</p></div>
+			<div class="error">
+				<p>
+			   Upload failed. Double check your file. Files should be less than 3MB and smaller than 400px x 400px.
+				</p>
+			</div>
 	<?php endif; ?>
 
-	<form id="Upload" action="/users/p_upload_profile_image" enctype="multipart/form-data" method="post"> 
+	<form class="form" id="Upload" action="/users/p_upload_profile_image" enctype="multipart/form-data" method="post"> 
 			  
 		<input type="hidden" name="MAX_FILE_SIZE" value="30000"> 
 
@@ -21,6 +23,6 @@
 	 
 	</form> 
 		
-</div>
+
 
 	

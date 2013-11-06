@@ -1,3 +1,6 @@
+<div class="subhead large-12 columns">
+	<h1>Find Fellow Collaborators</h1>
+</div>	
 
 <table>
 	<!-- Users' Status Table Title -->

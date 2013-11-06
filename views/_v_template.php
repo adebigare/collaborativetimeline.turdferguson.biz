@@ -20,7 +20,6 @@
 	<script src="foundation/js/vendor/custom.modernizr.js"></script>
 
 						
-	<!-- Controller Specific JS/CSS -->
 	<?php 
 		if(isset($client_files_head)) echo $client_files_head; 
 	?>
@@ -42,11 +41,15 @@
 		 	  	<li class="divider"></li>
 		<!-- Menu for users who are logged in -->
 			<?php if($user): ?>
-					<li><a href='/users/logout'>Logout</a></li>
 					<li class="divider"></li>
 					<li><a href='/users/profile'>Profile</a></li>
 					<li class="divider"></li>
 					<li><a href='/posts/index'>Posts</a></li>
+					<li class="divider"></li>
+					<li><a href='/users/relationships'>Collaborators</a></li>
+					<li class="divider"></li>
+					<li><a href='/users/logout'>Logout</a></li>
+
 
 		<!-- Menu options for users who are not logged in -->
 			<?php else: ?>
@@ -63,10 +66,11 @@
 		<!-- End Header/Splash -->
 
 		<div id="wrapper" class="row">
+			<div class="subhead"><?php if(isset($content->subhead)) echo $content->subhead;?></div>
 
 			<?php if(isset($profile_widget)): ?>
 				<div class="large-3 columns">
-					<?php echo $profile_widget; ?>
+					<?php echo $profile_widget;?>
 				</div>
 
 			  <div class="large-9 columns" id="inserted-content">
