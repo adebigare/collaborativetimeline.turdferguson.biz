@@ -4,6 +4,22 @@ body {
 	background-color: #BBE9FA;
 }
 
+body::after {
+  content: "";
+  background: url(/img/grilled.png) repeat;
+  opacity: 0.5;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;   
+}
+
+/*#background {
+	background-color: #BBE9FA;
+*/
+
 a {
 	color: black;
 }
@@ -33,7 +49,7 @@ p.time {
 	text-transform: uppercase;
 }
 
-#inserted-content {
+#wrapper {
 	margin-top: 4em;
 }
 
@@ -88,9 +104,6 @@ textarea {
 	height: 50px;
 }
 
-#add_post {
-	margin-top: 2em;
-}
 
 table {
 	width: 80%;
@@ -99,8 +112,6 @@ table {
 	box-shadow: 1px 1px 0 #0A6D91;
 	-moz-box-shadow: 1px 1px 0 #0A6D91;
 	-webkit-box-shadow: 1px 1px 0 #0A6D91;
-
-
 }
 
 table tr.even, table tr.alt, table tr:nth-of-type(even) {

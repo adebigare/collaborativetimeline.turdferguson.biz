@@ -27,7 +27,8 @@
 	
 </head>
 
-<body>  
+<body> 
+<div id="background"> 
 	<div id='menu'>
 		<nav class="top-bar fixed" data-options="is_hover:false">
 		 	<ul class="title-area">
@@ -57,23 +58,39 @@
 			</section>
 
 	</div>
-	<!-- Header/Splash Page -->
 	<div id="main">
 
 		<!-- End Header/Splash -->
 
 		<div id="wrapper" class="row">
 
-		  <div id="inserted-content">
+			<?php if(isset($profile_widget)): ?>
+				<div class="large-3 columns">
+					<?php echo $profile_widget; ?>
+				</div>
 
-				<?php if(isset($content)) echo $content; ?>
-				<?php if(isset($add_post)) echo $add_post; ?>
-				<?php if(isset($secondary)) echo $secondary; ?>
-				<?php if(isset($client_files_body)) echo $client_files_body; ?>
+			  <div class="large-9 columns" id="inserted-content">
 
-			</div>
+			 		<?php if(isset($add_post)) echo $add_post; ?>
+			 		<?php if(isset($content)) echo $content; ?>
+			 	
+			 	</div>
+
+				 
+			<?php else: ?>
+
+			  <div class="large-9 large-centered columns" id="inserted-content">
+
+					<?php if(isset($add_post)) echo $add_post; ?>
+					<?php if(isset($content)) echo $content; ?>
+					<?php if(isset($secondary)) echo $secondary; ?>
+
+				</div>
+
+		<?php endif;?>
 
 		</div>
+		<?php if(isset($client_files_body)) echo $client_files_body; ?>
 	</div>
 
 
@@ -95,6 +112,6 @@
 	  $(document).foundation();
 	</script>
 
-
+</div>
 </body>
 </html>
