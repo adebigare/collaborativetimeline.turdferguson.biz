@@ -5,6 +5,9 @@ class users_controller extends base_controller {
 		parent::__construct();
 	} 
 
+
+////////////////////// USERS HOME ////////////////////////////////
+
 	public function index() {
 
 		# Setup view
@@ -24,6 +27,9 @@ class users_controller extends base_controller {
 		# Render Template
 			echo $this->template;	
 	}
+
+
+////////////////////// SIGN UP ////////////////////////////////
 
 	public function signup() {
 
@@ -66,9 +72,11 @@ class users_controller extends base_controller {
 		# Redirect to Profile page
 			Router::redirect('/users/index');
 
+	} 
 
 
-	} ######## End Signup #############
+
+////////////////////// LOGIN ////////////////////////////////
 
 
 	public function login($error=NULL) {
@@ -101,7 +109,11 @@ class users_controller extends base_controller {
 				Router::redirect("/users/index");
 			}
 
-	} ###### End Login ##########
+	} 
+
+
+
+////////////////////// LOGOUT ////////////////////////////////
 
 	public function logout() {
 
@@ -121,7 +133,11 @@ class users_controller extends base_controller {
 		# Send them back to the main index.
 			Router::redirect("/");
 
-	} ###### End Logout ##########
+	} 
+
+
+
+////////////////////// PROFILE ////////////////////////////////
 
 	public function profile($user_name = NULL) {
 		
@@ -141,12 +157,18 @@ class users_controller extends base_controller {
 		# Display the view
 			echo $this->template;
 																	
-	} ######## End Profile ##########
+	} 
 
-	public function upload_profile_image() {
+
+
+	////////////////////// UPLOAD IMAGE ////////////////////////////////
+
+	public function upload_profile_image($error=NULL) {
 
 		$this->template->title = "Upload Image";
 		$this->template->content = View::instance('v_users_upload_profile_image');
+
+		$this->template->content->error = $error;
 
 		echo $this->template;
 	}
@@ -163,28 +185,19 @@ class users_controller extends base_controller {
 	    $file_name = $file_path.".png"; 
 
 	    if (move_uploaded_file ($_FILES['upload_image_file'] ['tmp_name'], $file_name)) {
+    		
+    		# Update the database
+    		DB::instance(DB_NAME)->update('users', Array("avatar" => $imgObj), "WHERE user_id = ".$user_id);
 
-    		print '<p>Success!</p>';
+    		Router::redirect('/users/profile/success');
 
 	  	} else {
+	  		
+	  		Router::redirect($uploadForm.'/error');
+		   
+			}
 
-		    switch ($_FILES['upload_image_file'] ['error']) {  
-
-		    		case 1:
-		               print '<p> The file is bigger than this PHP installation allows</p>';
-		               break;
-		        case 2:
-		        			print '<p> The file is bigger than this form allows. Images can be no larger than 30mb.</p>';
-		              break;
-		        case 3:
-		               print '<p> Only part of the file was uploaded</p>';
-		               break;
-		        case 4:
-		               print '<p> No file was uploaded</p>';
-		               break;
-				}
-
-	     }
+	     
 	}
 
 } # end of the class
