@@ -6,7 +6,7 @@
 			<label for='content'><h4>What are you reading?</h4></label>
 		</div>
 		<div class="large-8 columns">
-			<textarea name='content' id='content' placeholder="Post a link to an article! We'll find the title."></textarea>
+			<textarea name='content' id='content' placeholder="Post a link to an article! We'll find the title." required></textarea>
 			<input class="add_post button small radius" type='submit' value='New post'>
 		</div>
 

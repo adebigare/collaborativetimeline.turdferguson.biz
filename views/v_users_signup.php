@@ -18,7 +18,7 @@
     <p>Password</p>
     <input type='password' name='password' required>
 
-    <input class="button" type='submit' value='Sign up' required>
+    <input class="button" type='submit' value='Sign up'>
 
 </form>
 

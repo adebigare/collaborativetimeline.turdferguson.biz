@@ -21,7 +21,7 @@
 
 				$name = $this->user->first_name;
 
-				$this->template->content->subhead = "<h1>Welcome Back, $name !</h1>";
+				$this->template->subhead = "<h1>Welcome Back, $name !</h1>";
 
 			# Set User's Table information
 				$this->template->profile_widget->user_info = $this->user;
@@ -75,6 +75,8 @@
 
 			# Create an encrypted token via their email address and a random string
 				$_POST['token'] = sha1(TOKEN_SALT.$_POST['email'].Utils::generate_random_string()); 
+
+				$this->userObj->confirm_unique_email($_POST('email'));
 
 			# Insert this user into the database
 				$user_id = DB::instance(DB_NAME)->insert('users', $_POST);
@@ -190,6 +192,7 @@
 				$this->template->content->editing = $editing;
 
 				$this->template->content->success = $success;
+				$this->template->subhead = "<h1>Profile Settings</h1>";
 
 				$profile_view->user_info = $this->user;
 
@@ -203,7 +206,7 @@
 
 		public function p_update_profile() {
 
-			
+
 			$data = Array (
 				"first_name" => $_POST['first_name'],
 				"last_name" => $_POST['last_name'],
@@ -260,6 +263,7 @@
 				# Setup view
 					$this->template->content = View::instance("v_users_relationships");
 					$this->template->title = "User Relationships";
+					$this->template->subhead = "<h1>Find Fellow Collaborators</h1>";
 
 				# Build Query for users
 					$q = "SELECT *

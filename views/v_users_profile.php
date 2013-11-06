@@ -1,3 +1,7 @@
+
+<div class="subhead large-12 columns">
+</div>
+
 <?php if(isset($user_info)): ?>
 
 	<?php if($success): ?>
@@ -8,11 +12,8 @@
 			</div>
 	<?php endif; ?>
 
-	<div class="subhead large-12 columns">
-		<h1>Profile Settings</h1>
-	</div>
-
 	<div class="form row">
+		<div class="large-12 columns">
 
 		<div class="large-4 columns">
 
@@ -63,6 +64,7 @@
 			<?php endif; ?>
 		</div>
 	<?php endif; ?>
+</div>
 </div>
 
 

@@ -30,8 +30,24 @@ ul.user_feed p {
 	margin-bottom: 0;
 }
 
-ul.profile_info {
+#feature-wrapper {
+	background: rgba(0,0,0,0.1);
+	box-shadow: 1px 1px 0 gray;
+	-moz-box-shadow: 1px 1px 0 gray;
+	-webkit-box-shadow: 1px 1px 0 gray;
+	margin-top: -15px;
+	z-index: -1;
+}
 
+#feature ul li {
+	display: inline;
+	clear: none;
+	float: left;
+	padding: 0 1em;
+}
+
+#feature ul li a {
+	display: inline-block;
 }
 
 p.time {
@@ -40,11 +56,11 @@ p.time {
 }
 
 #wrapper {
-	margin-top: 4em;
+	margin-top: 1em;
 }
 
 .subhead {
-	margin: 1em auto 3em auto;
+	margin: 1em auto;
 }
 
 .form {
