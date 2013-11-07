@@ -13,17 +13,15 @@
 						die(Router::redirect('/index/index'));
 			}
 
+			$name = $this->user->first_name;
 			# Setup view
 				$this->template->profile_widget = View::instance('v_users_profile_widget');
 				$this->template->content = View::instance('v_posts_index');
 				$this->template->add_post = View::instance('v_posts_add');
 				$this->template->title   = "Index";
+				$this->template->subhead = "<h1>Welcome Back, $name!</h1>";
 
-				$name = $this->user->first_name;
-
-				$this->template->subhead = "<h1>Welcome Back, $name !</h1>";
-
-			# Set User's Table information
+			# Set variables need for profile_widget view
 				$this->template->profile_widget->user_info = $this->user;
 
 			# Create User's feed
@@ -76,7 +74,7 @@
 			# Create an encrypted token via their email address and a random string
 				$_POST['token'] = sha1(TOKEN_SALT.$_POST['email'].Utils::generate_random_string()); 
 
-				$this->userObj->confirm_unique_email($_POST('email'));
+				// $this->userObj->confirm_unique_email($_POST('email'));
 
 			# Insert this user into the database
 				$user_id = DB::instance(DB_NAME)->insert('users', $_POST);
@@ -191,7 +189,7 @@
 
 				$this->template->content->editing = $editing;
 
-				$this->template->content->success = $success;
+				$this->template->success = $success;
 				$this->template->subhead = "<h1>Profile Settings</h1>";
 
 				$profile_view->user_info = $this->user;
@@ -228,6 +226,7 @@
 			$this->template->content = View::instance('v_users_upload_profile_image');
 
 			$this->template->content->error = $error;
+			$this->template->subhead = '<h1>Upload A New Profile Photo</h1>';
 
 			echo $this->template;
 		}
@@ -235,25 +234,68 @@
 
 		public function p_upload_profile_image() {
 
+			# Build the variables
 				$user_id = $this->user->user_id;
 
-		    $file_path = APP_PATH.AVATAR_PATH.$user_id; 
+		    $time = Time::now();
 		    
-		    $file_name = $file_path.".png"; 
+		    $file_name = APP_PATH.AVATAR_PATH.$time.$user_id.".png"; 
 
-		    if (move_uploaded_file ($_FILES['upload_image_file'] ['tmp_name'], $file_name)) {
-	    		
-	    		# Update the database
-	    		DB::instance(DB_NAME)->update('users', Array("avatar" => $user_id.".png"), "WHERE user_id = ".$user_id);
 
-	    		Router::redirect('/users/profile');
+	    # Check the file to be sure it meets size/type reqs
+		    if(isset($_FILES['upload_image_file'])) {
+		        $errors     = array();
+		        $maxsize    = 2097152;
+		        $acceptable = array(
+		            'image/jpeg',
+		            'image/jpg',
+		            'image/gif',
+		            'image/png'
+		        );
 
-		  	} else {
+		        if(($_FILES['upload_image_file']['size'] >= $maxsize) || ($_FILES["upload_image_file"]["size"] == 0)) {
+		            $errors[] = 'File too large. File must be less than 2 megabytes.';
+		        }
 
-		  		Router::redirect('/users/upload_profile_image/error');
-			   
-				}   
-		}
+		        if(!in_array($_FILES['upload_image_file']['type'], $acceptable) && (!empty($_FILES["upload_image_file"]["type"]))) {
+		            $errors[] = 'Invalid file type. Only JPG, GIF and PNG types are accepted.';
+		        }
+
+	        # If all goes well, load the image into the DB and resize
+		        if(count($errors) === 0) {
+
+        	    # Load and resize the image
+        		    $imgObj = new Image($file_name);
+        		    $imgObj->open_image($file_name);
+        		    $imgObj->get_dimensions(200,200);
+        	    	$imgObj->save_image($file_name);
+
+      	    	# Move the image to the uploads/avatars folder
+		            move_uploaded_file($_FILES['upload_image_file']['tmp_name'], $file_name);
+
+	            # Update the DB
+		            DB::instance(DB_NAME)->update('users', Array("avatar" => $time.$user_id.".png"), "WHERE user_id = ".$user_id);
+
+	            # Redirect to the profile page
+		            Router::redirect('/users/profile/success');
+
+	        # Otherwise spit out an error message, depending on the problem
+		        } else {
+		            foreach($errors as $error) {
+		                echo '
+		                <script>
+		                alert("'.$error.'");
+		                window.location.href=\'/users/upload_profile_image\';
+		                </script>';
+
+		            }
+		            die(); 
+		        }
+		    }
+
+	    		# Update the database			   
+		}   
+		
 
 
 	/////////////// USER TO USER RELATIONSHIPS //////////////////
@@ -264,6 +306,11 @@
 					$this->template->content = View::instance("v_users_relationships");
 					$this->template->title = "User Relationships";
 					$this->template->subhead = "<h1>Find Fellow Collaborators</h1>";
+					$this->template->profile_widget = View::instance('v_users_profile_widget');
+
+				# Set variables need for profile_widget view
+					$this->template->profile_widget->user_info = $this->user;
+					$name = $this->user->first_name;
 
 				# Build Query for users
 					$q = "SELECT *

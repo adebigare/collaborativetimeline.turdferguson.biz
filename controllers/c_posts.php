@@ -18,7 +18,7 @@
 			$this->template->content = View::instance('v_posts_index');
 			$this->template->add_post = View::instance('v_posts_add');
 			$this->template->title = 'Posts';
-
+			$this->template->profile_widget = View::instance('v_users_profile_widget');
 			$this->template->subhead = "<h1>Latest News</h1>";
 
 		# Query

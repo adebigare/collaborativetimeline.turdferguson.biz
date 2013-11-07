@@ -30,6 +30,14 @@ ul.user_feed p {
 	margin-bottom: 0;
 }
 
+img.avatar {
+	border-radius: 3px;
+	border: 1px solid #0A6D91;
+	box-shadow: 1px 1px 0 #0A6D91;
+	-moz-box-shadow: 1px 1px 0 #0A6D91;
+	-webkit-box-shadow: 1px 1px 0 #0A6D91;
+}
+
 #feature-wrapper {
 	background: rgba(0,0,0,0.1);
 	box-shadow: 1px 1px 0 gray;
@@ -80,6 +88,30 @@ p.time {
 	margin-bottom: .5em;
 }
 
+#inserted-content {
+	margin-bottom: 4em;
+}
+
+#profile_widget {
+	border-radius: 3px;
+	border: 1px solid #999;
+	box-shadow: 1px 1px 0 #999;
+	padding: .5em;
+	background-color: white;
+}
+
+#profile_widget h4 {
+	text-align: center;
+}
+
+#profile_widget input {
+	float: right;
+	background-color: #BBE9FA;
+	border-color: #BBE9FA;
+	color: #0A6D91;
+	text-decoration: none;
+}
+
 
 .login {
 	margin-top: 2em;
@@ -117,7 +149,7 @@ textarea {
 
 table {
 	width: 80%;
-	background-color: #BBE9FA;
+	background-color: white;
 	border: 1px solid #0A6D91;
 	box-shadow: 1px 1px 0 #0A6D91;
 	-moz-box-shadow: 1px 1px 0 #0A6D91;

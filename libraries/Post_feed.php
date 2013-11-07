@@ -23,7 +23,6 @@
 		        ORDER BY created DESC";
 
 				$feed = DB::instance(DB_NAME)->select_rows($q);
-
 				return $feed;
 
 			}

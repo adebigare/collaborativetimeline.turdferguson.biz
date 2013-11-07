@@ -17,7 +17,7 @@
 
 		<div class="large-4 columns">
 
-			<img src="<?=$user_info->avatar?>">
+			<img class="avatar" src="<?=$user_info->avatar?>">
 
 			<h4><a href="/users/upload_profile_image">Upload New Profile Image</a></h4>
 

@@ -1,7 +1,3 @@
-<div class="subhead large-12 columns">
-	<h1>Upload A New Profile Photo</h1>
-</div>	
-
 	<?php if(isset($error)): ?>
 			<div class="error">
 				<p>
@@ -10,10 +6,8 @@
 			</div>
 	<?php endif; ?>
 
-	<form class="form" id="Upload" action="/users/p_upload_profile_image" enctype="multipart/form-data" method="post"> 
+	<form class="form" id="Upload_profile_photo" action="/users/p_upload_profile_image" enctype="multipart/form-data" method="post"> 
 			  
-		<input type="hidden" name="MAX_FILE_SIZE" value="30000"> 
-
 		<p> <label for="file">File to upload:</label> </p> 
 
 		<p> <input id="upload_image_file" type="file" name="upload_image_file"> </p>

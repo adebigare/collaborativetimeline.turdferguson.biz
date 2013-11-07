@@ -27,6 +27,7 @@
 </head>
 
 <body> 
+	<!--Main Navigation -->
 	<div id='menu'>
 
 		<nav class="top-bar fixed" data-options="is_hover:false">
@@ -44,8 +45,6 @@
 					<?php if($user): ?>
 							<li class="divider"></li>
 							<li><a href='/users/profile'>Profile</a></li>
-							<li class="divider"></li>
-							<li><a href='/posts/index'>Posts</a></li>
 							<li class="divider"></li>
 							<li><a href='/users/relationships'>Collaborators</a></li>
 							<li class="divider"></li>
@@ -96,11 +95,11 @@
 		<!-- Grid for view with Profile Module -->
 			<?php if(isset($profile_widget)):?>
 
-				<div class="large-3 columns">
+				<div id="profile_widget" class="large-3 columns">
 					<?php echo $profile_widget;?>
 				</div>
 
-			  <div class="large-9 columns" id="inserted-content">
+			  <div class="large-8 columns" id="inserted-content">
 
 			 		<?php if(isset($add_post)) echo $add_post; ?>
 			 		<?php if(isset($content)) echo $content; ?>
