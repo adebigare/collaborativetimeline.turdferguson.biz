@@ -13,15 +13,15 @@
 						die(Router::redirect('/index/index'));
 			}
 
+			# Set variables need for profile_widget view
 			$name = $this->user->first_name;
+
 			# Setup view
 				$this->template->profile_widget = View::instance('v_users_profile_widget');
 				$this->template->content = View::instance('v_posts_index');
 				$this->template->add_post = View::instance('v_posts_add');
 				$this->template->title   = "Index";
 				$this->template->subhead = "<h1>Welcome Back, $name!</h1>";
-
-			# Set variables need for profile_widget view
 				$this->template->profile_widget->user_info = $this->user;
 
 			# Create User's feed
@@ -64,6 +64,8 @@
 				Router::redirect('/users/signup/error');
 			} else {
 
+				$email = $_POST['email'];
+
 			# More data we want stored with the user
 				$_POST['created']  = Time::now();
 				$_POST['modified'] = Time::now();
@@ -74,7 +76,15 @@
 			# Create an encrypted token via their email address and a random string
 				$_POST['token'] = sha1(TOKEN_SALT.$_POST['email'].Utils::generate_random_string()); 
 
-				// $this->userObj->confirm_unique_email($_POST('email'));
+			# Check to see if the email is unique	
+				if(!$this->userObj->confirm_unique_email($email)) {
+					echo '
+					<script>
+					alert("This email is in use. Please log in to continue.");
+					window.location.href=\'/users/login\';
+					</script>';
+;
+				}
 
 			# Insert this user into the database
 				$user_id = DB::instance(DB_NAME)->insert('users', $_POST);
@@ -83,15 +93,10 @@
 
 			# log in new user
 				if($user_id) {
-				setcookie('token',$_POST['token'], strtotime('+1 year'), '/');
+					setcookie('token',$_POST['token'], strtotime('+1 year'), '/');
 				}
-
-			# Redirect to Profile page
-				Router::redirect('/users/index');
 			}
-		} 
-
-
+		}
 
 	////////////////////// LOGIN ////////////////////////////////
 
@@ -204,7 +209,12 @@
 
 		public function p_update_profile() {
 
+		# If the user cancels their edits	
+			if($name = $_POST['cancel']) {
+				Router::redirect('/users/profile');
+			}
 
+		# Build the array to prevent injection attacks
 			$data = Array (
 				"first_name" => $_POST['first_name'],
 				"last_name" => $_POST['last_name'],
@@ -213,7 +223,10 @@
 				"twitter_handle" => $_POST['twitter_handle']
 				);
 
+		# Update the DB 
 			DB::instance(DB_NAME)->update_row("users", $data, "WHERE user_id ="	.$this->user->user_id);
+			
+		# Bring user back to profile page
 			Router::redirect('/users/profile/success');
 		}
 
@@ -292,8 +305,6 @@
 		            die(); 
 		        }
 		    }
-
-	    		# Update the database			   
 		}   
 		
 

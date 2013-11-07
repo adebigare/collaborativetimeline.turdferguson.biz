@@ -7,11 +7,16 @@
 		
 		# Send the user back to the login page if they're not logged in
 			if(!$this->user){
-				Router::redirect('/users/login');
-				alert("Oops, you've found a members only area, and you're not logged in.");
+				echo '
+				<script>
+				alert("Oops, you\'ve found a members only area, and you\'re not logged in.");
+				window.location.href=\'/users/login\';
+				</script>'
 			}
 		}
 
+	///////////////////// Posts Feed ///////////////////////////////////
+	
 		public function index($posts = NULL) {
 
 		# View
@@ -28,6 +33,7 @@
 
 		}
 
+	///////////////////// Add New Post ///////////////////////////////////
 
 		public function add() {
 

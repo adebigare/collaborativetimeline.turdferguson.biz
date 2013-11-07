@@ -45,7 +45,7 @@
 				    <input placeholder="<?=$user_info->twitter_handle?>" type='text' name='twitter_handle' value="<?=$user_info->twitter_handle?>">
 
 				    <input class="button small radius" type='submit' value='Save'>
-				    <input href="/users/profile" class="button small radius" type='submit' value='Cancel'>
+				    <input href="/users/profile" name="cancel" class="button small radius" type='submit' value='Cancel'>
 
 				</form>
 

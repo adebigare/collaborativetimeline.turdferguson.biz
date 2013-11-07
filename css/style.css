@@ -31,6 +31,7 @@ ul.user_feed p {
 }
 
 img.avatar {
+	margin: auto;
 	border-radius: 3px;
 	border: 1px solid #0A6D91;
 	box-shadow: 1px 1px 0 #0A6D91;
@@ -104,7 +105,7 @@ p.time {
 	text-align: center;
 }
 
-#profile_widget input {
+#profile_widget a {
 	float: right;
 	background-color: #BBE9FA;
 	border-color: #BBE9FA;
